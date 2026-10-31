@@ -1,0 +1,24 @@
+{
+  "name": "blaxkvault",
+  "private": true,
+  "version": "1.0.0",
+  "description": "BlaxkVault \u2014 Discover. Download. Watch. Keep.",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "dev": "npm run build -w @blaxkvault/shared && npm run dev -w @blaxkvault/server",
+    "dev:web": "npm run dev -w @blaxkvault/web",
+    "build": "npm run build -w @blaxkvault/shared && npm run build -w @blaxkvault/web && npm run build -w @blaxkvault/server",
+    "start": "node apps/server/dist/index.js",
+    "typecheck": "npm run typecheck -w @blaxkvault/shared && npm run typecheck -w @blaxkvault/server && npm run typecheck -w @blaxkvault/web",
+    "test": "npm run test -w @blaxkvault/server && npm run test -w @blaxkvault/web",
+    "smoke": "npm run smoke -w @blaxkvault/server",
+    "build:shared": "npm run build -w @blaxkvault/shared"
+  }
+}

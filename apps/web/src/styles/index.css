@@ -1,0 +1,209 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* ---------------------------------------------------------------------------
+   BlaxkVault design tokens.
+   Deep charcoal foundation, restrained violet accent, honest status colours.
+   No glassmorphism everywhere, no glowing borders, no gratuitous gradients.
+   Everything below is a real token so surfaces stay consistent (blueprint §4).
+--------------------------------------------------------------------------- */
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.75rem;
+
+  /* Dark is the canonical BlaxkVault theme (cinema-first). */
+  --background: oklch(0.145 0.008 285);
+  --foreground: oklch(0.97 0.002 285);
+  --card: oklch(0.185 0.009 285);
+  --card-foreground: oklch(0.97 0.002 285);
+  --popover: oklch(0.165 0.009 285);
+  --popover-foreground: oklch(0.97 0.002 285);
+  --primary: oklch(0.62 0.19 293);
+  --primary-foreground: oklch(0.99 0.005 285);
+  --secondary: oklch(0.245 0.01 285);
+  --secondary-foreground: oklch(0.95 0.003 285);
+  --muted: oklch(0.235 0.008 285);
+  --muted-foreground: oklch(0.70 0.012 285);
+  --accent: oklch(0.26 0.02 290);
+  --accent-foreground: oklch(0.97 0.002 285);
+  --destructive: oklch(0.60 0.21 22);
+  --destructive-foreground: oklch(0.98 0.01 20);
+  --border: oklch(0.30 0.01 285 / 60%);
+  --input: oklch(0.30 0.012 285 / 50%);
+  --ring: oklch(0.66 0.17 293 / 70%);
+
+  /* Status colours — used for real download states only. */
+  --status-queued: oklch(0.72 0.03 260);
+  --status-downloading: oklch(0.70 0.15 250);
+  --status-paused: oklch(0.78 0.14 75);
+  --status-completed: oklch(0.72 0.15 155);
+  --status-failed: oklch(0.65 0.19 22);
+  --status-cancelled: oklch(0.62 0.02 285);
+  --status-unknown: oklch(0.68 0.02 285);
+
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --tracking-display: -0.022em;
+}
+
+.light {
+  --background: oklch(0.985 0.002 285);
+  --foreground: oklch(0.16 0.01 285);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.16 0.01 285);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.16 0.01 285);
+  --primary: oklch(0.52 0.20 293);
+  --primary-foreground: oklch(0.99 0.005 285);
+  --secondary: oklch(0.96 0.005 285);
+  --secondary-foreground: oklch(0.22 0.01 285);
+  --muted: oklch(0.955 0.004 285);
+  --muted-foreground: oklch(0.48 0.013 285);
+  --accent: oklch(0.94 0.02 290);
+  --accent-foreground: oklch(0.22 0.01 285);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(0.99 0.005 20);
+  --border: oklch(0.86 0.008 285 / 80%);
+  --input: oklch(0.86 0.008 285 / 80%);
+  --ring: oklch(0.52 0.20 293 / 60%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-status-queued: var(--status-queued);
+  --color-status-downloading: var(--status-downloading);
+  --color-status-paused: var(--status-paused);
+  --color-status-completed: var(--status-completed);
+  --color-status-failed: var(--status-failed);
+  --color-status-cancelled: var(--status-cancelled);
+  --color-status-unknown: var(--status-unknown);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-sans);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+  html.light {
+    color-scheme: light;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: none;
+  }
+  /* Visible, consistent keyboard focus (blueprint §10). */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 40%, transparent);
+  }
+}
+
+@layer utilities {
+  .display-tight {
+    letter-spacing: var(--tracking-display);
+    font-weight: 650;
+  }
+  .surface {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+  }
+  .surface-raised {
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, white 8%), var(--card));
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 0 0 color-mix(in oklab, white 4%, transparent) inset, 0 18px 40px -28px rgb(0 0 0 / 0.75);
+  }
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--foreground) 22%, transparent) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--foreground) 18%, transparent);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  .grid-posters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+    gap: clamp(0.75rem, 1.4vw, 1.25rem);
+  }
+  /* Large lists stay cheap: skip layout and paint for off-screen posters. */
+  .content-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 320px 480px;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .hairline {
+    border-top: 1px solid var(--border);
+  }
+}
+
+/* Respect the OS setting and the in-app override (blueprint §4/§10). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+html[data-motion='reduce'] *,
+html[data-motion='reduce'] *::before,
+html[data-motion='reduce'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+html[data-motion='reduce'] .gsap-animatable {
+  opacity: 1 !important;
+  transform: none !important;
+}
